@@ -5,12 +5,12 @@ __author__ = 'Keisuke SAKAGUCHI'
 __license__ = "GPL v3"
 __descripstion__ = "extract plain texts (document by document) from gigaword files"
 __prerequisite__ = 
-    "
-    1. Download lxml from http://lxml.de/
-    2. Before running this script, gigaword files should be modified by the commands: 
-        gunzip *.gz
-        find . -name "nyt*" |xargs -i% ksh -c '(echo "<ROOT>"; cat %; echo "</ROOT>") > %.xml'
-    "
+    """""""""""""""
+    # 1. Download lxml from http://lxml.de/
+    # 2. Before running this script, gigaword files should be modified by the commands: 
+    #    gunzip *.gz
+    #    find . -name "nyt*" |xargs -i% ksh -c '(echo "<ROOT>"; cat %; echo "</ROOT>") > %.xml'
+    """""""""""""""
 __usage__ = "python xml2text.py xmlFilename"
 
 import sys
