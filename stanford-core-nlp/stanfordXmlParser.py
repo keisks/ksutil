@@ -37,6 +37,13 @@ def parseXml(xmlPath):
         colDepList = []     # collapsed dependency
         ccpDepList = []     # collapsed-ccprocessed dependency
 
+        # dependency diectionaries (key is ID)
+        # note that ID starts from 1 in the stanfordCoreNLP
+        basDepDict = {}
+        colDepDict = {}
+        ccpDepDict = {}
+
+
         # get id
         sentDict['id'] = sent.attrib['id']
         sentDict['tree'] = sent.find('.//parse').text
@@ -86,42 +93,63 @@ def parseXml(xmlPath):
             basDep = sent.find('.//basic-dependencies')
             for dep in basDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').text
-                depDep = dep.find('.//dependent').text
-                
+                depGov = dep.find('.//governor').attrib['idx']
+                depDep = dep.find('.//dependent').attrib['idx']
                 basDepList.append((depType, depGov, depDep))
+
+                # dependency dictionary (the key is word ID)
+                if basDepDict.has_key(depGov):
+                    basDepDict[depGov].append((depType, depDep))
+                else:
+                    basDepDict[depGov] = [(depType, depDep)]
+
         else:
             pass
         
-        sentDict['basdep'] = basDepList
+        sentDict['basDep'] = basDepList
+        sentDict['basDepID'] = basDepDict
 
         # get (collapsed) dependency
         if sent.find('.//collapsed-dependencies') is not None:
             colDep = sent.find('.//collapsed-dependencies')
             for dep in colDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').text
-                depDep = dep.find('.//dependent').text
-                
+                depGov = dep.find('.//governor').attrib['idx']
+                depDep = dep.find('.//dependent').attrib['idx']
                 colDepList.append((depType, depGov, depDep))
+
+                # dependency dictionary (the key is word ID)
+                if colDepDict.has_key(depGov):
+                    colDepDict[depGov].append((depType, depDep))
+                else:
+                    colDepDict[depGov] = [(depType, depDep)]
+        
         else:
             pass
 
-        sentDict['coldep'] = colDepList
+        sentDict['colDep'] = colDepList
+        sentDict['colDepID'] = colDepDict
 
         # get (collapsed-ccprocessed) dependency
         if sent.find('.//collapsed-ccprocessed-dependencies') is not None:
             ccpDep = sent.find('.//collapsed-ccprocessed-dependencies')
             for dep in ccpDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').text
-                depDep = dep.find('.//dependent').text
-                
+                depGov = dep.find('.//governor').attrib['idx']
+                depDep = dep.find('.//dependent').attrib['idx']
                 ccpDepList.append((depType, depGov, depDep))
+
+                # dependency dictionary (the key is word ID)
+                if ccpDepDict.has_key(depGov):
+                    ccpDepDict[depGov].append((depType, depDep))
+                else:
+                    ccpDepDict[depGov] = [(depType, depDep)]
+
         else:
             pass
 
-        sentDict['ccpdep'] = ccpDepList
+        sentDict['ccpDep'] = ccpDepList
+        sentDict['ccpDepID'] = ccpDepDict
 
         # get coreference information (not yet implemented)
         # coming soon...
