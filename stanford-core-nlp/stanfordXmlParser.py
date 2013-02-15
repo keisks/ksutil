@@ -121,7 +121,7 @@ def parseXml(xmlPath):
         else:
             pass
 
-        sentDict['coldep'] = colDepList
+        sentDict['ccpdep'] = ccpDepList
 
         # get coreference information (not yet implemented)
         # coming soon...
