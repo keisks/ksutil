@@ -93,8 +93,8 @@ def parseXml(xmlPath):
             basDep = sent.find('.//basic-dependencies')
             for dep in basDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').attrib['idx']
-                depDep = dep.find('.//dependent').attrib['idx']
+                depGov = int(dep.find('.//governor').attrib['idx'])-1
+                depDep = int(dep.find('.//dependent').attrib['idx'])-1
                 basDepList.append((depType, depGov, depDep))
 
                 # dependency dictionary (the key is word ID)
@@ -114,8 +114,8 @@ def parseXml(xmlPath):
             colDep = sent.find('.//collapsed-dependencies')
             for dep in colDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').attrib['idx']
-                depDep = dep.find('.//dependent').attrib['idx']
+                depGov = int(dep.find('.//governor').attrib['idx'])-1
+                depDep = int(dep.find('.//dependent').attrib['idx'])-1
                 colDepList.append((depType, depGov, depDep))
 
                 # dependency dictionary (the key is word ID)
@@ -135,8 +135,8 @@ def parseXml(xmlPath):
             ccpDep = sent.find('.//collapsed-ccprocessed-dependencies')
             for dep in ccpDep.findall('.//dep'):
                 depType = dep.attrib['type']
-                depGov = dep.find('.//governor').attrib['idx']
-                depDep = dep.find('.//dependent').attrib['idx']
+                depGov = int(dep.find('.//governor').attrib['idx'])-1
+                depDep = int(dep.find('.//dependent').attrib['idx'])-1
                 ccpDepList.append((depType, depGov, depDep))
 
                 # dependency dictionary (the key is word ID)
