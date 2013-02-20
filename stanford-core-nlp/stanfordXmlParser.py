@@ -5,6 +5,7 @@ __author__ = 'Keisuke SAKAGUCHI'
 __version__ = "0.1"
 __license__ = "GPL v3"
 __descripstion__ = "Parsing stanfordCoreNLP-parsed xml file."
+__prerequisite__ = "lxml module from http://lxml.de/ "
 __usage__ = "python stanfordXmlParser.py FILE(*.xml)"
 
 import sys
