@@ -11,8 +11,6 @@ import sys
 import os
 import re
 
-p = re.compile(r'^[\x20-\x7E]+$')
-
 numWordList = [
         'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
         'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen',
