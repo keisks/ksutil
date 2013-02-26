@@ -37,7 +37,7 @@ dateList = [
         'January', 'February', 'March', 'April', 
         'May' 'June', 'July', 'August', 'September', 
         'October', 'November', 'December'
-        'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sta', 'Sun',
+        'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
         'Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday', 'Sunday'
         ]
