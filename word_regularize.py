@@ -54,7 +54,7 @@ def regularize(word):
     if p.search(word):
         return "#TIME#"
 
-    # check if the word is number
+    # check if the word is NUMBER
     # if true, return word "#NUMBER#"
     p = re.compile(r'[+-]?(?:0|[1-9]\d*)(?:\.\d*[1-9])?')
     if p.search(word) or word.lower() in numWordList:
@@ -65,13 +65,13 @@ def regularize(word):
     if word.lower() in persPronList:
         return "#PRP#"
 
-    # check inf the word contains non-ascii characters
+    # check if the word contains non-ascii characters
     # if true, return word "#NonAscii#"
     p = re.compile(r'^[\x20-\x7E]+$')
     if p.search(word) is None:
         return "#NonAscii#"
 
-    # check inf the word is e-mail address
+    # check if the word is e-mail address
     # if true, return word "#EMail#"
     p = re.compile(r'[a-zA-Z0-9+_\-\.]+@[0-9a-zA-Z][.-0-9a-zA-Z]*.[a-zA-Z]+')
     if p.search(word):
