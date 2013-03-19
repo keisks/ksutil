@@ -2,7 +2,6 @@
 #encoding: utf-8
 
 __author__ = 'Keisuke SAKAGUCHI'
-__license__ = "GPL v3"
 __descripstion__ = "extract plain texts (document by document) from gigaword files"
 __prerequisite__ = 
     """""""""""""""

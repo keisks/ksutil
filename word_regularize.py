@@ -3,7 +3,6 @@
 
 __author__ = 'Keisuke SAKAGUCHI'
 __version__ = "0.1"
-__license__ = "GPL v3"
 __descripstion__ = "very simple word regularizer"
 __usage__ = "python word_regularize.py WORD"
 
