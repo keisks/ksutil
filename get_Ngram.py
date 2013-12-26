@@ -17,8 +17,8 @@ def ngram(wordList, N):
     ngramList = []
     for j in range(len(wordList)):
         for i in range(j):
-            if j-i == N:                # set '<=' when extracting 1..N gram 
-                ngramList.append(wordList[i:j])
+            if j-i == N:    # set '<=' instead of '==' when extracting 1..N gram 
+                ngramList.append(" ".join(wordList[i:j]))
 
     return ngramList
 
@@ -30,11 +30,7 @@ if __name__ == '__main__':
     print ngram(words, n)
     
     """ Result
-    [['<s>', 'This', 'is'], 
-     ['This', 'is', 'a'], 
-     ['is', 'a', 'test'], 
-     ['a', 'test', 'sentence'], 
-     ['test', 'sentence', '.']]
+    ['<s> This is', 'This is a', 'is a test', 'a test sentence', 'test sentence .']
     """
 
 
