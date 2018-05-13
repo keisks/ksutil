@@ -60,7 +60,6 @@ def getEditDist(seq1, seq2):
                 dist_matrix[i][j] = cost1
                 move_matrix[i][j] = "I"
     
-
     # get operations
     j = len(seq1)-1
     i = len(seq2)-1
@@ -70,14 +69,20 @@ def getEditDist(seq1, seq2):
         if prev_move == "I": 
             prev_move = move_matrix[i][j-1]
             j -= 1
+            moves.append("I")
         elif prev_move == "D":
             prev_move = move_matrix[i-1][j]
             i -= 1
+            moves.append("D")
         elif prev_move == "R":
+            if dist_matrix[i][j] == dist_matrix[i-1][j-1]:
+                moves.append("_")
+            else:
+                moves.append("R")
+
             prev_move = move_matrix[i-1][j-1]
             j -= 1
             i -= 1
-        moves.append(prev_move)
 
     return dist_matrix[-1][-1], moves[::-1]
 
