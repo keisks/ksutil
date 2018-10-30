@@ -1,0 +1,107 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      // this function is executed when the page is loaded.
+      function init(){
+        console.log("init")
+        input_text = document.getElementById('input_text');
+        // avoid submission by the enter key.
+        input_text.onkeydown = function(e){
+          if (e.keyCode === 13){
+            e.preventDefault();
+          }
+        };
+      }
+
+      function isValid(){
+        // check validity of user input (before submission)
+        console.log("isValid");
+        input_text = document.getElementById('input_text');
+        if (!(Boolean(input_text.value))){ // = text is blank
+          alert("Answer the question.");
+          return false;
+        }
+        return true;
+      }
+
+      function postFavoriteFood() {
+        console.log("postFavoriteFood");
+
+        // reject if the answer is not valid
+        if (!isValid()){
+          return false;
+        }
+
+        // ajax
+        var xhr = new XMLHttpRequest();
+        var result_food = document.getElementById('result_food');
+        xhr.onreadystatechange = function() {
+          if(this.readyState == 4 && this.status == 200) {
+            result_food.innerHTML = this.responseText;
+          } else {
+            result_food.innerHTML = "processing...";
+          }
+        }
+        xhr.open('POST', '/', true);
+        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        // the submission is sent to app.route('/') in minimal.py.
+        xhr.send("food_submitted=" + document.getElementById('input_text').value);
+      }
+
+      function getCatFact() {
+        console.log("getCatFact");
+        var xhr = new XMLHttpRequest();
+        // see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+        xhr.addEventListener('load', addShow);
+        xhr.open('GET', '/scripts/cat_facts');
+        // the submission is sent to app.route('/scripts/cat_facts') in minimal.py.
+        xhr.send();
+      }
+
+      function addShow() {
+        console.log("addshow");
+        // for debugging purposes
+        //console.log(this)
+        //console.log(this.responseText)
+        var data = JSON.parse(this.responseText);
+        console.log(data)
+        var span = document.getElementById('result_cat');
+        span.innerText = data.result;
+      }
+
+    </script>
+
+</head>
+<body onload="init()">
+  <div class="container">
+    <h2>{{ header }}</h2>
+    <p>What is your favorite food?</p>
+    <form action="index" method="post">
+      <label>Name:<input type="text" id="input_text" value="" /></label>
+      <button type="button" id="btn-post" onclick="postFavoriteFood();">Click</button>
+      <div id="result_food"></div>
+    </form>
+    <hr />
+    <form method="get">
+      <button type="button" class='btn btn-default' onclick="getCatFact();">Give me a cat fact!</button>
+      <div id="result_cat"></div>
+    </form>
+  </div>
+</body>
+</html>
