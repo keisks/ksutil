@@ -1,20 +1,25 @@
 import os
 import sys
 import logging
+import logging.handlers
 from flask import Flask, jsonify, render_template, request
 from scripts.answer import get_answer
 from scripts.cat_facts import get_cat_facts
 
 app = Flask(__name__)
-formatter = '%(levelname)s : %(asctime)s : %(message)s'
-logging.basicConfig(filename="./requests.log", level=logging.DEBUG, format=formatter)
+
+handler = logging.handlers.RotatingFileHandler("my_log.log", "a+", maxBytes=3000, backupCount=5)
+handler.setLevel(logging.INFO) 
+handler.setFormatter(logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s'))
+app.logger.addHandler(handler)
+
  
 # default page 
 @app.route("/", methods=['GET', 'POST'])
 def run_index(): # this function name can be arbitrary.
     if request.method == "POST":
         food = request.form["food_submitted"]
-        logging.info("answered:\t {}".format(food))
+        app.logger.info("query:{}".format(food))
         return "Oh, your favorite food is " + get_answer(food) + "!"
     return render_template("index.html", header="Minimal demo for NLP.")
 
