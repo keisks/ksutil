@@ -20,23 +20,36 @@
       // this function is executed when the page is loaded.
       function init(){
         console.log("init")
-        input_text = document.getElementById('input_text');
+        input_text_food = document.getElementById('input_text_food');
+        input_text_drink = document.getElementById('input_text_drink');
         // avoid submission by the enter key.
-        input_text.onkeydown = function(e){
+        input_text_food.onkeydown = function(e){
           if (e.keyCode === 13){
             e.preventDefault();
           }
         };
+        input_text_drink.onkeydown = function(e){
+          if (e.keyCode === 13){
+            e.preventDefault();
+          }
+        };
+
       }
 
       function isValid(){
         // check validity of user input (before submission)
         console.log("isValid");
-        input_text = document.getElementById('input_text');
-        if (!(Boolean(input_text.value))){ // = text is blank
-          alert("Answer the question.");
+        input_text_food  = document.getElementById('input_text_food');
+        input_text_drink = document.getElementById('input_text_drink');
+        if (!(Boolean(input_text_food.value))){ // = text is blank
+          alert("food is missing.");
           return false;
         }
+        if (!(Boolean(input_text_drink.value))){ // = text is blank
+          alert("food is missing.");
+          return false;
+        }
+
         return true;
       }
 
@@ -50,18 +63,18 @@
 
         // ajax
         var xhr = new XMLHttpRequest();
-        var result_food = document.getElementById('result_food');
+        var result = document.getElementById('result');
         xhr.onreadystatechange = function() {
           if(this.readyState == 4 && this.status == 200) {
-            result_food.innerHTML = this.responseText;
+            result.innerHTML = this.responseText;
           } else {
-            result_food.innerHTML = "processing...";
+            result.innerHTML = "processing...";
           }
         }
         xhr.open('POST', '/', true);
         xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         // the submission is sent to app.route('/') in minimal.py.
-        xhr.send("food_submitted=" + document.getElementById('input_text').value);
+        xhr.send("food_submitted=" + document.getElementById('input_text_food').value + "&drink_submitted=" + document.getElementById('input_text_drink').value);
       }
 
       function getCatFact() {
@@ -91,11 +104,13 @@
 <body onload="init()">
   <div class="container">
     <h2>{{ header }}</h2>
-    <p>What is your favorite food?</p>
+    <p>What is your favorite food and drink?</p>
     <form action="index" method="post">
-      <label>Name:<input type="text" id="input_text" value="" /></label>
+      <label>Food:<input type="text" id="input_text_food" value="" /></label>
+      <label>Drink:<input type="text" id="input_text_drink" value="" /></label>
+
       <button type="button" id="btn-post" onclick="postFavoriteFood();">Click</button>
-      <div id="result_food"></div>
+      <div id="result"></div>
     </form>
     <hr />
     <form method="get">

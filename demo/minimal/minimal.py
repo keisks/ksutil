@@ -19,8 +19,9 @@ app.logger.addHandler(handler)
 def run_index(): # this function name can be arbitrary.
     if request.method == "POST":
         food = request.form["food_submitted"]
+        drink = request.form["drink_submitted"]
         app.logger.info("query:{}".format(food))
-        return "Oh, your favorite food is " + get_answer(food) + "!"
+        return "Oh, your favorite food is " + get_answer(food) + "and favorite drink is " + get_answer(drink)
     return render_template("index.html", header="Minimal demo for NLP.")
 
 # run script in backend
