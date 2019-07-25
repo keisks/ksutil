@@ -86,4 +86,7 @@ function levenshteinDistance(a, b) {
   return [ed, edits]
 }
 
-console.log(levenshteinDistance("This isn't a long long sentence.".split(" "), "This is a sentence.".split(" ")));
+var res= levenshteinDistance("This is not a sentence.".split(" "), "This is a sentence.".split(" "));
+console.log(res[0]);
+console.log(res[1]);
+console.log(res[1].includes('I'));

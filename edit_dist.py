@@ -84,7 +84,7 @@ def getEditDist(seq1, seq2):
             j -= 1
             i -= 1
 
-    return dist_matrix[-1][-1], moves[::-1]
+    return dist_matrix[-1][-1], moves[::-1][:-1]
 
 
 if __name__ == '__main__':
@@ -94,6 +94,8 @@ if __name__ == '__main__':
     #print getEditDist('dog', 'doing')  # replace*1 + insert*1
     #print getEditDist('dog', 'do')     # delete*1
     #print getEditDist([1,3], [2,3])    # replace*1
-    print getEditDist([1,2,3,5,6], [1,2,4,5])    # replace*1
+    print(getEditDist([1,2,3,5,6], [1,2,4,5]))    # replace*1
+    print(getEditDist([1,2,4,5], [1,2,3,5,6]))    # replace*1
+    print(getEditDist("This isn't a sentence .".split(), "This is a sentence .".split()))
 
     #print getEditDist(sys.argv[1], sys.argv[2])
