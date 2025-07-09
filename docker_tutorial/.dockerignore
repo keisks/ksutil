@@ -1,0 +1,12 @@
+# 一般的に除外すべきファイル/フォルダ
+.git
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.tar.gz
+.env
+.DS_Store
+.vscode
+*.ipynb_checkpoints
